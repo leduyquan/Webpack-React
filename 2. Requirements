@@ -1,0 +1,34 @@
+1. Compile next-gen javascript featrures
+- Cần hỗ trợ khả năng biên dịch từ js thế hệ mới (ES6) về thế hệ hiện tại để có thể chạy trên mọi trình duyệt hiện nay
+
+test: /\.js$/,
+loader: 'babel-loader',   //transform ES6 -> JS thuần
+exclude: /node_module/    //ko transform các js ở trong node_module
+
+- Add new file .babelrc : babel tự động tìm kiếm file này, config trong file này
++ preset: chỉ định các presets (cài đặt) muốn apply trong code
+
+{
+    "presets": [
+        ["env", {
+            "targets": {
+                "browsers": [
+                    "> 1%",
+                    "last 2 versions"
+                ]
+            }
+        }],
+        "stage-2",
+        "react"
+    ],
+    "plugins": [
+        "syntax-dynamic-import"
+    ]
+}
+
+
+2. Handle JSX: để có thể sử dụng jsx trong js code (được xử lý trong file .babelrc)
+
+3. CSS autoprefixing: để có thể viết simple css tự động thêm vendor prefix (-webkit, -o, -moz), hỗ trợ best syntax
+4. Support image import
+5. Optimize code
