@@ -1,0 +1,33 @@
+- Webpack là 1 bundler, công cụ giúp gói gọn toàn bộ các file js, css, png... thành các bundle, bundle cho từng loại.
+- Webpack work: có 4 phần quan trọng
+
+1. entry: nó luôn luôn cần ít nhất 1 entry point (app.js). 
++ Root js trong project. 
++ Và có thể set nhiều entry point
++ Entry point này sẽ có dependency với file js khác
++ Webpack sẽ build 1 biểu đồ dependency dựa vào file root này
++ Sẽ phân tích các phụ thuộc và bundle chúng theo thứ tự vào 1 file
+
+
+
+2. Loaders
++ webpack sẽ cho phép sử dụng các loader này để tiền xử lý các files, như transform, phiên dịch,.. 
++ Loader được áp dụng cho mỗi loại file khác nhau
++ Ví dụ js được handle bởi loaderX, css được handle bởi loaderY
++ babel-loader và css-loader là 2 loader được sử dụng nhiều
+test: /\.css$/, 
+use: ["style-loader", "css-loader", "sass-loader"]}]
+
++ webpack sẽ đọc ngược các loader này. Sass-loader: scss -> css | Css-loader: css handle các import/require | Style-loader: inject css vào DOM
+
+
+3. Plugin
++ Sau khi loader làm xong nhiệm vụ của nó thì chúng ta có thể sử dụng các plugin để tối ưu hóa
++ Ví dụ:
+-- Làm xấu file bundle.js: var name = "Quan" -> var a='Quan' -> file nhẹ hơn
+-- Auto tự tạo file HTML
+-- bundle ra file css
+
+
+4. Xuất ra output là bundle.js ở folder dist
+
