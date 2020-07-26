@@ -67,6 +67,9 @@ exclude: /node_module/    //ko transform các js ở trong node_module
 - @babel/polyfill cung cấp cho Babel có khả năng convert code (các chức năng như promise, Object.assign,...) cho cả browser cổ đại cũng hiểu.
 - @babel/core là nền tảng để tháo lắp các "phụ kiện" một cách linh hoạt. Trong đó, các “phụ kiện” bao gồm: 
 + @babel/preset-env để convert từ ES5++ về ES5
-+ @babel/babel-preset-react để convert JS của React về ES5 
++ @babel/preset-react để convert JS của React về ES5 
 + @babel/preset-typescript để convert Typescript về Javascript ES5
 Như vậy, nếu cần chuyển đổi script gì đó sang Javascript ES5, đơn giản chỉ cần cài thêm "phụ kiện" cho Babel hoạt động.
+
+Cần cài đặt:
+npm install --save-dev @babel/core @babel/preset-env @babel/preset-react @babel/reset-stage-2 babel-loader
