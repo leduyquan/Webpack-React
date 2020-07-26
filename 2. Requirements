@@ -30,5 +30,43 @@ exclude: /node_module/    //ko transform các js ở trong node_module
 2. Handle JSX: để có thể sử dụng jsx trong js code (được xử lý trong file .babelrc)
 
 3. CSS autoprefixing: để có thể viết simple css tự động thêm vendor prefix (-webkit, -o, -moz), hỗ trợ best syntax
-4. Support image import
+- Add postcss-loader để có thể hỗ trợ automatically prefixes để work treen older browser
+- Add autoprefixer
+{
+    "loader": "postcss-loader",
+    "options": {
+        "ident": "postcss",
+        "plugins": () => [
+            autoprefixer({
+                "browsers": ["> 1%", "last 2 versions"]
+            })
+        ]
+    }
+}
+
+4. Support image import, font
+- Add url-loader (add thêm file-loader vì url-loader dựa vào nó)
+{
+    test: /\.(png|jpe?g|gif)$/,
+    loader: 'url-loader?limit=8000&name=assets/images/[name].[ext]'
+}
+{
+    test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+    loader: 'url-loader?limit=500&minetype=application/font-woff&name=assets/fonts/[name].[ext]'
+},
+{
+    test: /\.(ttf|eot|svg|otf|gif)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+    loader: 'url-loader?limit=500&name=assets/fonts/[name].[ext]'
+}
+
 5. Optimize code
+
+
+***Lưu ý về babel:
+- @babel/cli là để "thực hiện việc chyển đổi chỉ với dăm ba câu lệnh đơn giản"
+- @babel/polyfill cung cấp cho Babel có khả năng convert code (các chức năng như promise, Object.assign,...) cho cả browser cổ đại cũng hiểu.
+- @babel/core là nền tảng để tháo lắp các "phụ kiện" một cách linh hoạt. Trong đó, các “phụ kiện” bao gồm: 
++ @babel/preset-env để convert từ ES5++ về ES5
++ @babel/babel-preset-react để convert JS của React về ES5 
++ @babel/preset-typescript để convert Typescript về Javascript ES5
+Như vậy, nếu cần chuyển đổi script gì đó sang Javascript ES5, đơn giản chỉ cần cài thêm "phụ kiện" cho Babel hoạt động.
